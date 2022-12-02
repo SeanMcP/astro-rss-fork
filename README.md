@@ -2,27 +2,30 @@
 
 ---
 
-**THIS IS A FORK OF THE ORIGINAL PACKAGE**
+## THIS IS A FORK OF THE ORIGINAL PACKAGE
 
 This is a (hopefully) temporary fork of the official `@astrojs/rss` package. It adds the following behavior:
 
-## Support `content:encoded` in RSS feed
+### Support `content:encoded` in RSS feed
 
 By passing the following configuration to the exposed `rss` function, you can add full content to your RSS feed for `.md` files:
 
 ```ts
-export const get = () => rss({
-  // Other options...
-  contentLength: "full",
-  xmlns: {
-    content: "http://purl.org/rss/1.0/modules/content/",
-  },
-})
+export const get = () =>
+  rss({
+    // Other options...
+    contentLength: "full",
+    xmlns: {
+      content: "http://purl.org/rss/1.0/modules/content/",
+    },
+  });
 ```
+
+[This follows the API from this RSS](https://github.com/withastro/rfcs/pull/256), which is mostly accepted but has not yet been implemented.
 
 This feature does not support `.mdx` files, because it depends on `compiledContent` internally.
 
-## Omit drafts from RSS feed
+### Omit drafts from RSS feed
 
 A bug in the official package includes items marked as `draft: true` in the RSS feed. This fork fixes that by omitting them in all cases.
 
@@ -51,14 +54,15 @@ For instance, say you need to generate an RSS feed for all posts under `src/page
 
 ```js
 // src/pages/rss.xml.js
-import rss from 'astro-rss-fork';
+import rss from "astro-rss-fork";
 
-export const get = () => rss({
-    title: 'Buzz’s Blog',
-    description: 'A humble Astronaut’s guide to the stars',
+export const get = () =>
+  rss({
+    title: "Buzz’s Blog",
+    description: "A humble Astronaut’s guide to the stars",
     // pull in the "site" from your project's astro.config
     site: import.meta.env.SITE,
-    items: import.meta.glob('./blog/**/*.md'),
+    items: import.meta.glob("./blog/**/*.md"),
   });
 ```
 
@@ -71,19 +75,19 @@ The `rss` default export offers a number of configuration options. Here's a quic
 ```js
 rss({
   // `<title>` field in output xml
-  title: 'Buzz’s Blog',
+  title: "Buzz’s Blog",
   // `<description>` field in output xml
-  description: 'A humble Astronaut’s guide to the stars',
+  description: "A humble Astronaut’s guide to the stars",
   // provide a base URL for RSS <item> links
   site: import.meta.env.SITE,
   // list of `<item>`s in output xml
-  items: import.meta.glob('./**/*.md'),
+  items: import.meta.glob("./**/*.md"),
   // (optional) absolute path to XSL stylesheet in your project
-  stylesheet: '/rss-styles.xsl',
+  stylesheet: "/rss-styles.xsl",
   // (optional) inject custom xml
-  customData: '<language>en-us</language>',
+  customData: "<language>en-us</language>",
   // (optional) add arbitrary metadata to opening <rss> tag
-  xmlns: { h: 'http://www.w3.org/TR/html4/' },
+  xmlns: { h: "http://www.w3.org/TR/html4/" },
 });
 ```
 
@@ -115,16 +119,16 @@ When providing a formatted RSS item list, see the `RSSFeedItem` type reference b
 
 ```ts
 type RSSFeedItem = {
-	/** Link to item */
-	link: string;
-	/** Title of item */
-	title: string;
-	/** Publication date of item */
-	pubDate: Date;
-	/** Item description */
-	description?: string;
-	/** Append some other XML-valid data to this item */
-	customData?: string;
+  /** Link to item */
+  link: string;
+  /** Title of item */
+  title: string;
+  /** Publication date of item */
+  pubDate: Date;
+  /** Item description */
+  description?: string;
+  /** Append some other XML-valid data to this item */
+  customData?: string;
 };
 ```
 
