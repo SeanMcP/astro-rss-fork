@@ -21,7 +21,7 @@ export const get = () =>
   });
 ```
 
-[This follows the API from this RSS](https://github.com/withastro/rfcs/pull/256), which is mostly accepted but has not yet been implemented.
+[This follows the API from this RFC](https://github.com/withastro/rfcs/pull/256), which is mostly accepted but has not yet been implemented.
 
 This feature does not support `.mdx` files, because it depends on `compiledContent` internally.
 
