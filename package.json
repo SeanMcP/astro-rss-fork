@@ -1,7 +1,7 @@
 {
   "name": "astro-rss-fork",
   "description": "Add RSS feeds to your Astro projects",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "author": "withastro",
   "license": "MIT",
