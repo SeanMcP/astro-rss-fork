@@ -1,5 +1,5 @@
 import { XMLValidator } from "fast-xml-parser";
-import { createCanonicalURL, isValidURL } from './util.js';
+import { createCanonicalURL, isValidURL } from "./util.js";
 
 type GlobResult = Record<string, () => Promise<{ [key: string]: any }>>;
 
@@ -149,7 +149,8 @@ export async function generateRSS({
   xml += `<link>${createCanonicalURL(site).href}</link>`;
   if (typeof rssOptions.customData === "string") xml += rssOptions.customData;
   // items
-  for (const result of items) {
+
+  for (const result of items || []) {
     // Begin fork
     if (result.isDraft) {
       continue;
@@ -169,11 +170,7 @@ export async function generateRSS({
 
     // Begin fork
 
-    if (
-      result.description &&
-      rssOptions.contentLength === "full" &&
-      result.content
-    ) {
+    if (rssOptions.contentLength === "full" && result.content) {
       xml += `<content:encoded><![CDATA[${result.content}]]></content:encoded>`;
     }
 
